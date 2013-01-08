@@ -1,6 +1,8 @@
 describe( "prview", function() {
 
     beforeEach( function() {
+        var TempView = Backbone.View.extend();
+
         PR.registry.config({
             thing: "stuff",
             deep: {
@@ -8,9 +10,19 @@ describe( "prview", function() {
                     to: "value"
                 }
             },
+
+            ListView: {
+                "class": TempView,
+                foo: "bar"
+            },
+
             testClass: {
                 "class": Backbone.View,
-                prop: "value"
+                prop: "value",
+                componentClasses: [
+                    "ListView",
+                    TempView
+                ]
             },
             testClass2: {
                 "class": Backbone.Model,
@@ -62,6 +74,22 @@ describe( "prview", function() {
         expect( v.componentClasses.length ).toBe( 2 );
         expect( _.isFunction( v.componentClasses[ 0 ] ) );
         expect( _.isFunction( v.componentClasses[ 1 ] ) );
+    });
+
+    it( "should resolve a deep reference", function() {
+
+        var View = PR.View.extend({
+            wiringId: "testClass"
+        });
+
+        var v = new View();
+
+        expect( v.componentClasses.length ).toBe( 2 );
+        expect( _.isFunction( v.componentClasses[ 0 ] ) );
+        expect( _.isFunction( v.componentClasses[ 1 ] ) );
+        expect( new v.componentClasses[ 0 ]() instanceof Backbone.View );
+        expect( new v.componentClasses[ 0 ]().foo ).toBe( "bar" );
+        expect( new v.componentClasses[ 1 ]() instanceof Backbone.View );
     });
 
 });
