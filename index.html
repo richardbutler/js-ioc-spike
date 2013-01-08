@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <script src="vendor/zepto.js"></script>
+    <script src="vendor/underscore.js"></script>
+    <script src="vendor/backbone.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/registry.js"></script>
+
+    <script id="list-item-tmpl" type="text/html">
+        <li>
+            <h4><%= title %></h4>
+            <p><%= description %></p>
+        </li>
+    </script>
+
+    <script id="custom-list-item-tmpl" type="text/html">
+        <li style="color: #0000ff">
+            <h2><%= title %></h2>
+            <p><%= description %></p>
+        </li>
+    </script>
+</head>
+<body>
+
+    <div id="container"></div>
+
+    <!-- Include base implementations -->
+    <script src="js/container.js"></script>
+    <script src="js/listview.js"></script>
+
+    <!-- Include custom implementations -->
+    <script src="js/custom/custom.js"></script>
+
+    <!-- Include configuration -->
+    <script src="js/config.js"></script>
+
+    <!-- Include application -->
+    <script src="js/app.js"></script>
+
+</body>
+</html>
